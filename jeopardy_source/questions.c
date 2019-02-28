@@ -14,12 +14,25 @@
 void initialize_game(void)
 {
     // initialize each question struct and assign it to the questions array
+    printf("Welcome to the game\n");
+    display_categories();
+    // Make Questions
+    // Programming Question
+    // Algorithm Question
+    // Database Question
 }
 
 // Displays each of the remaining categories and question dollar values that have not been answered
 void display_categories(void)
 {
     // print categories and dollar values for each unanswered question in questions array
+    for(int i = 0; i < NUM_CATEGORIES; i++){
+        printf("Question Category: %s, Question Dollar Values:", categories[i]);
+        for(int j = 0; j < NUM_QUESTIONS / NUM_CATEGORIES; j++){
+            printf(" %d" , (j * 10) + 10);
+        } 
+        printf("\n");
+    }
 }
 
 // Displays the question for the category and dollar value
@@ -39,5 +52,6 @@ bool valid_answer(char *category, int value, char *answer)
 bool already_answered(char *category, int value)
 {
     // lookup the question and see if it's already been marked as answered
+
     return false;
 }
