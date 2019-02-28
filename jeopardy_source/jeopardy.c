@@ -11,7 +11,7 @@
 #include <stdbool.h>
 #include "questions.h"
 #include "players.h"
-#include "jeopardy.h"
+#include "jeopardy.h" 
 
 // Put macros or constants here using #define
 #define BUFFER_LEN 256
@@ -95,6 +95,10 @@ int main(int argc, char *argv[])
         }
         printf("Question: Category: %s, Value: %d\n", current_category, value);
         // EXAMPLE: This line gets a line of input from the user
+
+        // Print question
+        display_question(current_category, value);
+
         fgets(buffer, BUFFER_LEN, stdin);
 
 
@@ -110,7 +114,7 @@ int main(int argc, char *argv[])
         if(questions_answered == NUM_QUESTIONS){
             break;
         }else{
-            free(current_category);
+            free(current_player);
             free(current_category);
         }
         // Display the final results and exit
