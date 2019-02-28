@@ -74,16 +74,26 @@ int main(int argc, char *argv[])
     // Perform an infinite loop getting command input from users until game ends
     game_state = 1;
     int questions_answered = 0;
-    char *current_player;
+    char *current_player, *current_category;
+    int value = 0;
     current_player = calloc(BUFFER_LEN, sizeof(char));
+    current_category = calloc(BUFFER_LEN, sizeof(char));
     while (game_state)
     {
         // Enter users name to answer question loop unitl valid name
-        while(!player_exists(players,NUM_PLAYERS, current_player)){
-            printf("Enter players name to answer question: ");
+        while(!player_exists(players, NUM_PLAYERS, current_player)){
+            printf("Enter player's name to answer question: ");
             scanf("%s", current_player);
         }
-        printf(current_player);
+        printf("Current Player: %s\n",current_player);
+
+
+        // Choose category 
+        while(!already_answered(current_category, value)){
+            printf("Enter Category and value: ");
+            scanf("%s %d", current_category, &value);
+        }
+        printf("Question: Category: %s, Value: %d\n", current_category, value);
         // EXAMPLE: This line gets a line of input from the user
         fgets(buffer, BUFFER_LEN, stdin);
 
@@ -100,10 +110,11 @@ int main(int argc, char *argv[])
         if(questions_answered == NUM_QUESTIONS){
             break;
         }else{
-            free(current_player);
+            free(current_category);
+            free(current_category);
         }
         // Display the final results and exit
     }
-    free(current_player);
+
     return EXIT_SUCCESS;
 }
