@@ -81,18 +81,20 @@ int main(int argc, char *argv[])
     while (game_state)
     {
         // Enter users name to answer question loop unitl valid name
-        while(!player_exists(players, NUM_PLAYERS, current_player)){
+        do{
             printf("Enter player's name to answer question: ");
             scanf("%s", current_player);
-        }
+        }while(!player_exists(players, NUM_PLAYERS, current_player));
+        
         printf("Current Player: %s\n",current_player);
 
 
         // Choose category 
-        while(!already_answered(current_category, value)){
+        do{
             printf("Enter Category and value: ");
             scanf("%s %d", current_category, &value);
-        }
+        }while(!already_answered(current_category, value));
+
         printf("Question: Category: %s, Value: %d\n", current_category, value);
         // EXAMPLE: This line gets a line of input from the user
 
