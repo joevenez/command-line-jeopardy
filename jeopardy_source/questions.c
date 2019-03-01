@@ -15,7 +15,6 @@ void initialize_game(void)
 { 
     // initialize each question struct and assign it to the questions array
     printf("Welcome to the game\n");
-    display_categories();
     // Make Questions 
 
     // Programming Question
@@ -56,7 +55,7 @@ void initialize_game(void)
     question q5;
     q5.answered = false;
     q5.value = 10;
-    strcpy(q5.category ,"algorithm");
+    strcpy(q5.category ,"algorithms");
     strcpy(q5.question , "Which data structure uses the methodology of First in First out?");
     strcpy(q5.answer, "stack");
     questions[4] = q5;
@@ -64,7 +63,7 @@ void initialize_game(void)
     question q6;
     q6.answered = false;
     q6.value = 20;
-    strcpy(q6.category ,"algorithm");
+    strcpy(q6.category ,"algorithms");
     strcpy(q6.question , "Which data structure uses the methodology of Last in First out?");
     strcpy(q6.answer, "queue");
     questions[5] = q6;
@@ -72,7 +71,7 @@ void initialize_game(void)
     question q7;
     q7.answered = false;
     q7.value = 30;
-    strcpy(q7.category ,"algorithm");
+    strcpy(q7.category ,"algorithms");
     strcpy(q7.question , "What kind of time complexity is Binary Search Tree?");
     strcpy(q7.answer, "logarithmic");
     questions[6] = q7;
@@ -80,7 +79,7 @@ void initialize_game(void)
     question q8;
     q8.answered = false;
     q8.value = 40;
-    strcpy(q8.category ,"algorithm");
+    strcpy(q8.category ,"algorithms");
     strcpy(q8.question , "Acronym for Breadth First Search?");
     strcpy(q8.answer, "BFS");
     questions[7] = q8;
@@ -89,7 +88,7 @@ void initialize_game(void)
     question q9;
     q9.answered = false;
     q9.value = 10;
-    strcpy(q9.category ,"database");
+    strcpy(q9.category ,"databases");
     strcpy(q9.question , "Acronym for Structure Query Language?");
     strcpy(q9.answer, "SQL");
     questions[8] = q9;
@@ -97,7 +96,7 @@ void initialize_game(void)
     question q10;
     q10.answered = false;
     q10.value = 20;
-    strcpy(q10.category ,"database");
+    strcpy(q10.category ,"databases");
     strcpy(q10.question , "Keyword used to add constraints on a query?");
     strcpy(q10.answer, "WHERE");
     questions[9] = q10;
@@ -105,7 +104,7 @@ void initialize_game(void)
     question q11;
     q11.answered = false;
     q11.value = 30;
-    strcpy(q11.category ,"database");
+    strcpy(q11.category ,"databases");
     strcpy(q11.question , "Symbol used to denote all?");
     strcpy(q11.answer, "*");
     questions[10] = q11;
@@ -113,7 +112,7 @@ void initialize_game(void)
     question q12;
     q12.answered = false;
     q12.value = 40;
-    strcpy(q12.category ,"database");
+    strcpy(q12.category ,"databases");
     strcpy(q12.question , "Keyword used to select items from a specific table?");
     strcpy(q12.answer, "FROM");
     questions[11] = q12;
@@ -126,8 +125,11 @@ void display_categories(void)
     // print categories and dollar values for each unanswered question in questions array
     for(int i = 0; i < NUM_CATEGORIES; i++){
         printf("Question Category: %s, Question Dollar Values:", categories[i]);
-        for(int j = 0; j < NUM_QUESTIONS / NUM_CATEGORIES; j++){
-            printf(" %d" , (j * 10) + 10);
+        for(int j = 0; j < NUM_QUESTIONS; j++){
+            if (!strcmp(questions[j].category,categories[i]) && !questions[j].answered){
+                 printf(" %d" , questions[j].value);
+            }
+           
         } 
         printf("\n");
     }
@@ -140,6 +142,7 @@ void display_question(char *category, int value)
     for(int i = 0; i < NUM_QUESTIONS; i++){
         if(strcmp(questions[i].category,category) == 0 && value == questions[i].value){
             printf("%s\n", questions[i].question);
+            questions[i].answered = true;
             break;
         }
     }
@@ -150,6 +153,13 @@ void display_question(char *category, int value)
 bool valid_answer(char *category, int value, char *answer)
 {
     // Look into string comparison functions
+    for(int i = 0; i < NUM_QUESTIONS; i++){
+        if(strcmp(questions[i].category,category) == 0 && value == questions[i].value && strcmp(questions[i].answer, answer) == 0){
+            printf("Your answer of \"%s\" is correct! %d points awarded!\n", answer, questions[i].value);
+            return true;
+        }
+    }
+    printf("Sorry, incorrect. No points. \n");
     return false;
 }
 
@@ -158,7 +168,7 @@ bool already_answered(char *category, int value)
 {
     // lookup the question and see if it's already been marked as answered
     for(int i = 0; i < NUM_QUESTIONS; i++){
-        if(strcmp(category, questions[i].category) == 0 && !questions[i].answered ){
+        if(strcmp(category, questions[i].category) == 0 && (value == questions[i].value) && questions[i].answered){
             return true;
         }
     }

@@ -9,9 +9,11 @@
 #define JEOPARDY_H_
 
 #define MAX_LEN 256
+#define NUM_TOKENS 3
+#define BUF_LENGTH 256
 
 // Processes the answer from the user containing what is or who is and tokenizes it to retrieve the answer.
-extern void tokenize(char *input, char **tokens);
+extern void tokenize(char *input, char tokens[NUM_TOKENS][BUF_LENGTH]);
 
 // Displays the game results for each player, their name and final score, ranked from first to last place
 extern void show_results(struct player *players, int num_players);
